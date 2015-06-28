@@ -19,6 +19,9 @@ public class MyAccountPage extends PageObject {
     @FindBy(className = "innerDivAccount")
     private WebElementFacade myOverViewElement;
 
+    @FindBy(id = "logoutLink")
+    private WebElementFacade logout;
+
     public void verify_balance(){
         List<WebElement> links = accountBalance.findElements(By.tagName("a"));
         String accountBalance = links.get(0).getText();
@@ -27,5 +30,9 @@ public class MyAccountPage extends PageObject {
         String myOverviewBalance = we.findElements(By.tagName("span")).get(0).getText();
 
         assert accountBalance.equals(myOverviewBalance);
+    }
+
+    public void log_out(){
+        logout.click();
     }
 }

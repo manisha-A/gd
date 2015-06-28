@@ -3,8 +3,10 @@ package com.steps;
 import com.pages.HomePage;
 import com.pages.MyAccountPage;
 import com.pages.WelcomePage;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.apache.xalan.xsltc.dom.SimpleResultTreeImpl;
 
 import static ch.lambdaj.Lambda.join;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,8 +19,14 @@ public class EndUserSteps extends ScenarioSteps {
     MyAccountPage myaccountpage;
 
     @Step
-    public void log_in_as_registered_user(){
-        homepage.login();
+    public void log_in_as_registered_user(String email,String password){
+        String registeredEmail = (String) Serenity.getCurrentSession().get("registeredEmail");
+        homepage.login(registeredEmail,password);
+    }
+
+    @Step
+    public void log_in_registered_user(String email,String password){
+        homepage.login(email,password);
     }
 
     @Step
@@ -54,5 +62,15 @@ public class EndUserSteps extends ScenarioSteps {
     @Step
     public void assert_email_validation_link(){
         welcomepage.assert_email_validation();
+    }
+
+    @Step
+    public void log_out(){
+        myaccountpage.log_out();
+    }
+
+    @Step
+    public void signup(String name,String email,String password){
+        homepage.signup(name,email,password);
     }
 }

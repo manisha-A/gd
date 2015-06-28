@@ -8,6 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import com.steps.EndUserSteps;
+import org.yecht.Data;
 
 public class DefinitionSteps {
 
@@ -26,9 +27,9 @@ public class DefinitionSteps {
         endUser.getDriver().quit();
     }
 
-    @When("^I log in as a registered user$")
-    public void i_log_in_as_a_registered_user() {
-       endUser.log_in_as_registered_user();
+    @When("^I log in as a registered user with \"(.*?)\" and \"(.*?)\"$")
+    public void i_log_in_as_a_registered_user_with_and(String email, String password) {
+        endUser.log_in_registered_user(email,password);
     }
 
     @When("^I want to play for free$")
@@ -36,7 +37,7 @@ public class DefinitionSteps {
         endUser.wants_to_play_free();
     }
 
-    @When("^I am registered as a user$")
+    @When("^I am registered as a user with \"(.*?)\" and \"(.*?)\"$")
     public void i_am_registered_as_a_user() {
     }
 
@@ -63,5 +64,20 @@ public class DefinitionSteps {
     @Then("^I should see emailValidation link$")
     public void i_should_see_emailValidation_link() {
         endUser.assert_email_validation_link();
+    }
+
+    @When("^I sign up as a registered user with \"(.*?)\",\"(.*?)\" and \"(.*?)\"$")
+    public void i_sign_up_as_a_registered_user_with_and(String name, String email, String password) {
+        endUser.signup(name,email,password);
+    }
+
+    @When("^I log out$")
+    public void i_log_out() {
+        endUser.log_out();
+    }
+
+    @When("^I login again with \"(.*?)\" and \"(.*?)\"$")
+    public void i_login_again_with_and(String email, String password) {
+        endUser.log_in_as_registered_user(email,password);
     }
 }
